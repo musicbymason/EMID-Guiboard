@@ -1,0 +1,29 @@
+// Define the analog pin connected to the slide fader's center pin
+const int faderPin = A0; 
+
+void setup() {
+  // Initialize serial communication at 9600 bits per second
+  Serial.begin(9600);
+  
+  // Configure the fader pin as an input
+  pinMode(faderPin, INPUT_PULLUP);
+}
+
+void loop() {
+  // Read the raw analog value (0 to 1023) from the fader
+  int rawValue = analogRead(faderPin);
+  
+  // Convert the 0-1023 value into a percentage (0 to 100)
+  int percentage = map(rawValue, 0, 1023, 0, 100);
+  
+  // Print the results to the Serial Monitor
+  Serial.print("Raw ADC Value: ");
+  Serial.print(rawValue);
+  Serial.print(" \t Position: ");
+  Serial.print(percentage);
+  Serial.println("%");
+  
+  // Small delay to stabilize readings and prevent spamming the monitor
+  delay(500); 
+}
+
