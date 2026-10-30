@@ -1,0 +1,39 @@
+/* 
+ * Example Code for Interlink Electronics 24" Long FSR
+ * Measures physical force/pressure along the long sensor strip.
+ */
+
+// Define the analog pin connected to the FSR voltage divider
+#define FSR_PIN A0 
+
+void setup() {
+  // Initialize serial communication at 9600 baud rate
+  Serial.begin(9600); 
+  Serial.println("Interlink 24\" FSR Test Initialized.");
+}
+
+void loop() {
+  // Read the raw 10-bit analog value (0 to 1023) from the sensor
+  int fsrReading = analogRead(FSR_PIN); 
+
+  // Print the raw numeric reading to the Serial Monitor
+  Serial.print("Raw Analog Reading = ");
+  Serial.print(fsrReading);
+
+  // Interpret qualitative pressure ranges based on the raw value
+  if (fsrReading < 10) {
+    Serial.println(" -> Status: No pressure applied.");
+  } else if (fsrReading < 200) {
+    Serial.println(" -> Status: Light touch.");
+  } else if (fsrReading < 500) {
+    Serial.println(" -> Status: Moderate squeeze/pressure.");
+  } else if (fsrReading < 800) {
+    Serial.println(" -> Status: Heavy squeeze.");
+  } else {
+    Serial.println(" -> Status: Extreme / Maximum force.");
+  }
+
+  // Delay 100 milliseconds to keep the Serial Monitor easily readable
+  delay(500); 
+}
+
